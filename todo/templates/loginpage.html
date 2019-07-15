@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+</head>
+<body>
+    <h1>Yoel's KanBan Board</h1>
+    <div>Register a new user:
+        <form action="{{ url_for('add_user') }}" method="POST">
+            <input type="text" name="userinput">
+            <input type="text" name="passwordinput">
+            <input type="submit" value="Add user">
+        </form>
+    </div>
+    <div>Login as existing user:
+        <form action="{{ url_for('auth_user') }}" method="POST">
+            <input type="text" name="userinput">
+            <input type="text" name="passwordinput">
+            <input type="submit" value="Login user">
+        </form>
+    </div>
+</body>
+</html>

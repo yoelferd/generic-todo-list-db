@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+</head>
+<body>
+    <h1>Yoel's KanBan Board</h1>
+    <div>Logout
+        <form action="{{ url_for('logout') }}">
+            <input type="hidden" name="todoitem">
+            <input type="submit" value="Log Out">
+        </form>
+    </div>
+    <div>Add a new todo item:
+        <form action="{{ url_for('add') }}" method="POST">
+            <input type="text" name="todoitem">
+            <input type="submit" value="Add Item">
+        </form>
+    </div>
+    <div>
+        <h2>Incomplete Items</h2>
+        <ul>
+            {% for todo in incomplete %}
+            <li style="font-size: 12pt">{{ todo.text }}
+                <p><a href="{{ url_for('complete', id=todo.id) }}">Mark As Completed </a></p>
+                <p><a href="{{ url_for('completing', id=todo.id) }}">Mark As Currently Working On</a></p>
+            </li>
+            {% endfor %}
+        </ul>
+          <h2>Currently Working On</h2>
+        <ul>
+            {% for todo in completing %}
+            <li style="font-size: 12pt">{{ todo.text }} </li>
+                <form action="{{ url_for('delete_entry', id=todo.id) }}" method="POST">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <input type="submit" value="Delete entry" />
+                </form>
+                <p><a href="{{ url_for('complete', id=todo.id) }}">Mark As Completed </a></p>
+            {% endfor %}
+        </ul>
+      <h2>Completed Items</h2>
+      <ul>
+          {% for todo in complete %}
+          <li style="font-size: 13">{{ todo.text }}</li>
+              <form action="{{ url_for('delete_entry', id=todo.id) }}" method="POST">
+                <input type="hidden" name="_method" value="DELETE" />
+                <input type="submit" value="Delete entry" />
+              </form>
+          {% endfor %}
+      </ul>
+    </div>
+</body>
+</html>
